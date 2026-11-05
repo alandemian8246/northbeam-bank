@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design tokens are RGB triplets so Tailwind can apply opacity modifiers. */
+:root {
+  color-scheme: light;
+  --canvas: 247 247 245;
+  --surface: 255 255 255;
+  --subtle: 242 242 239;
+  --line: 229 228 224;
+  --ink: 17 17 16;
+  --ink-2: 82 81 78;
+  --ink-3: 128 127 122;
+  --brand: 42 91 215;
+  --brand-soft: 232 239 253;
+  --brand-ink: 255 255 255;
+  --good: 22 128 74;
+  --good-soft: 228 245 235;
+  --warn: 173 105 0;
+  --warn-soft: 253 243 220;
+  --bad: 200 46 46;
+  --bad-soft: 252 233 233;
+
+  /* Chart palette (validated categorical order, light steps). */
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  --series-6: #008300;
+  --series-7: #6250d6;
+  --series-8: #e34948;
+  --chart-grid: #ecebe7;
+  --chart-axis: #807f7a;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --canvas: 14 14 13;
+  --surface: 26 26 25;
+  --subtle: 34 34 32;
+  --line: 46 46 43;
+  --ink: 240 239 236;
+  --ink-2: 195 194 183;
+  --ink-3: 140 139 132;
+  --brand: 96 140 245;
+  --brand-soft: 30 40 66;
+  --brand-ink: 10 12 20;
+  --good: 74 196 128;
+  --good-soft: 20 46 32;
+  --warn: 230 168 60;
+  --warn-soft: 52 40 16;
+  --bad: 240 110 110;
+  --bad-soft: 58 24 24;
+
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
+  --series-6: #008300;
+  --series-7: #9085e9;
+  --series-8: #e66767;
+  --chart-grid: #2a2a28;
+  --chart-axis: #8c8b84;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  body {
+    @apply bg-canvas text-ink text-sm;
+  }
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand/60 ring-offset-2 ring-offset-canvas;
+  }
+  input[type='date']::-webkit-calendar-picker-indicator {
+    filter: var(--date-icon-filter, none);
+  }
+  [data-theme='dark'] {
+    --date-icon-filter: invert(0.8);
+  }
+}
+
+@layer components {
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+  .field {
+    @apply h-9 w-full rounded-lg border border-line bg-surface px-3 text-sm text-ink placeholder:text-ink-3
+      transition-colors hover:border-ink-3/60 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-medium text-ink-2;
+  }
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-wide text-ink-3;
+  }
+}
+
+/* Recharts focus rings are noisy; keyboard users get the tooltip instead. */
+.recharts-wrapper *:focus {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
