@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react';
+import { ErrorBoundary } from '@/components/layout/ErrorBoundary';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { Compass } from 'lucide-react';
 import { AppShell, PageHeader } from '@/components/layout/AppShell';
@@ -40,7 +41,7 @@ function NotFound() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Routes>
         <Route element={<AppShell />}>
           {[
@@ -53,7 +54,15 @@ export default function App() {
             { path: '/insights', el: <Insights /> },
             { path: '/settings', el: <Settings /> },
           ].map(({ path, el }) => (
-            <Route key={path} path={path} element={<Suspense fallback={<PageSkeleton />}>{el}</Suspense>} />
+            <Route
+              key={path}
+              path={path}
+              element={
+                <ErrorBoundary key={path}>
+                  <Suspense fallback={<PageSkeleton />}>{el}</Suspense>
+                </ErrorBoundary>
+              }
+            />
           ))}
           <Route path="*" element={<NotFound />} />
         </Route>

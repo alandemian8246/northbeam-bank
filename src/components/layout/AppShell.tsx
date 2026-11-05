@@ -32,7 +32,10 @@ export function AppShell() {
   const { pathname } = useLocation();
   useSettlementTicker();
   useHotkey('k', useCallback(() => setPaletteOpen(!useUi.getState().paletteOpen), [setPaletteOpen]));
-  useEffect(() => window.scrollTo(0, 0), [pathname]);
+  // Block body: an effect may only return a cleanup function, and some browser extensions make scrollTo return a value.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div className="flex min-h-screen">

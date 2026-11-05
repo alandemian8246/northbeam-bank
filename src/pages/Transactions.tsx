@@ -64,7 +64,9 @@ export default function Transactions() {
   }, [query, filters]); // `update` only closes over `filters`, which is listed.
 
   // Keep the input in sync when the URL changes elsewhere (e.g. "Clear all").
-  useEffect(() => setQuery(filters.query), [filters.query]);
+  useEffect(() => {
+    setQuery(filters.query);
+  }, [filters.query]);
 
   // "/" focuses search, the way most data-heavy apps behave.
   useEffect(() => {

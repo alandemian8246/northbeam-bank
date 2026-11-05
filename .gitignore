@@ -4,3 +4,5 @@ dist
 .DS_Store
 .vercel
 *.tsbuildinfo
+.firebase
+firebase-debug.log
