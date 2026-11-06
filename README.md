@@ -2,7 +2,7 @@
 
 A business banking dashboard for a fictional Series A startup (**Northbeam Labs**). It takes cues from Mercury and Slash but uses its own design, data model and interactions.
 
-**Live demo:** _add deployment URL_ · **Source:** _add repository URL_
+**Live demo:** https://northbeam-bank.web.app · **Source:** https://github.com/alandemian8246/northbeam-bank
 
 Everything runs in the browser. Twelve months of realistic banking activity are generated locally and saved to `localStorage`, so every action (payments, transfers, card controls, notes) persists between visits. You can reset it under **Settings → Reset demo data**.
 
@@ -68,7 +68,7 @@ npm test           # unit tests
 npm run build      # type-check + production build
 ```
 
-Deploying: this is a static SPA. `vercel.json` (Vercel) and `public/_redirects` (Netlify) handle client-side routes.
+Deploying: this is a static SPA hosted on Firebase Hosting (`firebase.json` rewrites all routes to `index.html`). Run `npm run deploy` to build and publish. `vercel.json` (Vercel) and `public/_redirects` (Netlify) are included for those hosts too.
 
 ## Quality checks
 
